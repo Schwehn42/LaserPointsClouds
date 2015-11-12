@@ -5,7 +5,7 @@
 # Test 1, Harvest GPS Tracks
 
 # modules sys for reading program options and urllib2 for opening url
-import os, sys, urllib2
+import os, sys
 
 dirIn = sys.argv[1]
 dirOut = sys.argv[2]
@@ -15,9 +15,8 @@ def getAllFilesByExt(directory, fileext):
     for subdir, dirs, files in os.walk(dirIn):
         for file in files:
             print file
-            retFiles.append(file)
+            if file.endswith(fileext):
+                retFiles.append(file)
     return retFiles
 
 allFiles = getAllFilesByExt(dirIn, ".asc")
-
-print allFiles
