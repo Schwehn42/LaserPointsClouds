@@ -8,15 +8,27 @@
 import os, sys
 
 dirIn = sys.argv[1]
-dirOut = sys.argv[2]
+outFileName = sys.argv[2]
+ext = ".asc"
 
 def getAllFilesByExt(directory, fileext):
     retFiles = []
     for subdir, dirs, files in os.walk(dirIn):
         for file in files:
-            print file
             if file.endswith(fileext):
                 retFiles.append(file)
     return retFiles
 
-allFiles = getAllFilesByExt(dirIn, ".asc")
+allFiles = getAllFilesByExt(dirIn, ext)
+
+#read files and add merge into one
+outFile = file(__file__ + "\\..\\" + outFileName, "w") #write merged stuff here
+for currFile in allFiles:
+    print "merging " + currFile + "..."
+    readObj = file(dirIn + "\\" + currFile, "r") #files to read from
+    content = readObj.read()
+    outFile.write(content)
+    readObj.close()
+    print "done."
+outFile.close()
+print "Merged file saved as " + outFileName + " in " + __file__ + "\\..\\"
