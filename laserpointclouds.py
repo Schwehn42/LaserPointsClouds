@@ -6,6 +6,8 @@
 
 # modules sys for reading program options and urllib2 for opening url
 import os, sys
+import time
+startTime = time.time()
 
 dirIn = sys.argv[1]
 outFileName = sys.argv[2]
@@ -47,3 +49,4 @@ for currFile in allFiles:
     print "done."
 outFile.close()
 print "Merged file saved as " + outFileName + " in " + __file__ + "\\..\\"
+print "Time needed to execute: " + str(time.time() - startTime) + " seconds"
