@@ -19,6 +19,19 @@ def getAllFilesByExt(directory, fileext):
                 retFiles.append(file)
     return retFiles
 
+def changeColor(changeFile, r, g, b):
+    readObj = file(dirIn + "\\" + currFile, "r") #read the file to change
+    content = readObj.read()
+    parts = content.split("\n") #split file (one string) into lines
+    for i in range(len(parts)):
+        parts[i] = parts[i][:26] #cut the last 3 values
+        parts[i] += str(r) + " " + str(g) + " " + str(b) #add the new rgb values
+    newline = "\n"
+
+    return newline.join(parts) #rebuild the file by adding newline after each line
+
+
+
 allFiles = getAllFilesByExt(dirIn, ext)
 
 #read files and add merge into one
@@ -27,6 +40,8 @@ for currFile in allFiles:
     print "merging " + currFile + "..."
     readObj = file(dirIn + "\\" + currFile, "r") #files to read from
     content = readObj.read()
+    if currFile == "Reflector.asc": #change color value to red for file 'Reflector.asc'
+        content = changeColor(currFile, 255, 0, 0)
     outFile.write(content)
     readObj.close()
     print "done."
